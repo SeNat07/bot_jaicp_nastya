@@ -14,3 +14,6 @@ sts:
 
 caila:
     noMatchThreshold: 0.2
+    
+injector:
+  botName: валерия

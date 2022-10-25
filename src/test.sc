@@ -14,7 +14,6 @@ theme: /
             a: Здравствуйте! 
             a: Привет! 
             a: Приветствую! 
-        a: меня зовут {{$injector.botName}}
         script:
             $response.replies = $response.replies || [];
             $response.replies.push({
@@ -23,13 +22,6 @@ theme: /
                 text: "Аэропорт"
                 })
         go!: /Service/SuggestHelp
-
-
-    state: Reset
-        q!: $regex</reset>
-        script:
-            $client = {};
-            $session = {};
             
 
     state: NoMatch || noContext = true
@@ -49,14 +41,12 @@ theme: /Service
         state: Accepted
             q: (да/давай/хорошо)
             a: Ура!
-            if: $client.phone
-                go!: /Phone/Confirm
-            else:
-                go!: /Phone/Ask
+            go!: /Phone/Ask
             
         state: Rejected
             q: (нет/не надо)
             a: Ничего другого я не умею :(
+                
                 
 theme: /Phone
     state: Ask || modal = true
@@ -65,28 +55,14 @@ theme: /Phone
             "Отмена"
             
         state: GetPhone
-            q: $phone
+            q: 79000000000
             a: Спасибо!
-            script:
-                log("-----" + toPrettyString($parseTree));
-            a: {{ $parseTree._phone }}
-            go!: /Phone/Confirm
+            go!: /Phone/Ok
             
         state: LocalCatchAll
             event: noMatch
             a: Напишите номер телефона.
             
-    state: Confirm
-        script: 
-            $session.propbablyPhone = $parseTree._phone || $client.phone;
-        a: Ваш номер {{$session.propbablyPhone}}, да?
-        
-        state: Yes
-            q: (да/верно)
-            script:
-                $client.phone = $session.propbablyPhone;
-            a: Хорошо
+    state: Ok
+        a: ок
             
-        state: No
-            q: (нет/не верно)
-            go!: /Phone/Ask
