@@ -11,6 +11,17 @@ theme: /
             a: Здравствуйте! 
             a: Привет! 
             a: Приветствую! 
+        go!: /Service/SuggestHelp
+            
+
+    state: NoMatch
+        event!: noMatch
+        a: Я не понял. Переформулируйте.
+        
+        
+theme: /Service
+    
+    state: SuggestHelp
         a: Купим билеты?
         
         state: Accepted
@@ -20,8 +31,3 @@ theme: /
         state: Rejected
             q: (нет/не надо)
             a: Ничего другого я не умею :(
-            
-
-    state: NoMatch
-        event!: noMatch
-        a: Я не понял. Переформулируйте.
